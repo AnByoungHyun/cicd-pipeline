@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'nginx:latest'
-            args '-u root -p 8000:8000 --name nginx'
+            args '-u root --name nginx'
             reuseNode true
         }
     }
@@ -10,11 +10,6 @@ pipeline {
         githubPush()
     }
     stages {
-        stage('location check') {
-            steps {
-                sh 'ls -la /usr/share/nginx/'
-            }
-        }
         stage('copy source') {
             steps {
                 sh 'cp ./src/* /usr/share/nginx/html/'
@@ -22,7 +17,7 @@ pipeline {
         }
         stage('curl test') {
             steps {
-                sh 'curl -s localhost:8000'
+                sh 'curl -s localhost:80'
             }
         }
     }
