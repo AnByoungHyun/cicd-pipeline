@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'nginx:latest'
-            args '-p 8000:8000 --name nginx'
+            args '-u root -p 8000:8000 --name nginx'
             reuseNode true
         }
     }
