@@ -3,6 +3,8 @@ pipeline {
         docker {
             image 'nginx:latest'
             args '-p 8000:8000'
+            reuseNode true
+            withServer 'tcp://docker-server:2375'
         }
     }
     triggers {
