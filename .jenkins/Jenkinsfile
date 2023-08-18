@@ -17,7 +17,7 @@ pipeline {
         }
         stage('copy source') {
             steps {
-                sh 'docker cp ./src/* nginx:/usr/share/nginx/html/'
+                sh 'sudo cp ./src/* nginx:/usr/share/nginx/html/'
             }
         }
         stage('curl test') {
