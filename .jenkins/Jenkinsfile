@@ -1,12 +1,18 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'nginx:latest'
+            args '-p 8000:8000 --name static-web'
+            reuseNode true
+        }
+    }
     triggers {
         githubPush()
     }
     stages {
         stage('test') {
             steps {
-                echo 'It Work!!'
+                sh 'curl localhost:8000'
             }
         }
     }
