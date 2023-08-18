@@ -6,12 +6,10 @@ pipeline {
     stages {
         stage('docker tcp connect') {
             steps {
-                script {
-                    docker.withServer() {
-                        docker.image('nginx:latest').withRun() {
-                            /* do things */
-                            sh 'echo "It Works"'
-                        }
+                docker.withServer() {
+                    docker.image('nginx:latest').withRun() {
+                        /* do things */
+                        sh 'echo "It Works"'
                     }
                 }
             }
