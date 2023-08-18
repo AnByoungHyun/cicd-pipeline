@@ -7,7 +7,7 @@ pipeline {
         stage('docker tcp connect') {
             steps {
                 script {
-                    docker.withServer('tcp://docker-server:2376') {
+                    docker.withServer('tcp://docker-server:2375') {
                         docker.image('nginx:latest').withRun() {
                             /* do things */
                             echo "It Works"
