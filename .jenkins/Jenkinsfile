@@ -13,6 +13,7 @@ pipeline {
         stage('location check') {
             steps {
                 sh 'ls -la'
+                sh 'pwd'
             }
         }
         stage('copy source') {
