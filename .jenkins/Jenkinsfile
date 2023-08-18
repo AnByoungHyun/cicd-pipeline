@@ -12,12 +12,12 @@ pipeline {
     stages {
         stage('location check') {
             steps {
-                sh 'ls -la'
+                sh 'ls -la /usr/share/nginx/'
             }
         }
         stage('copy source') {
             steps {
-                sh 'sudo cp ./src/* nginx:/usr/share/nginx/html/'
+                sh 'sudo cp ./src/* /usr/share/nginx/html/'
             }
         }
         stage('curl test') {
