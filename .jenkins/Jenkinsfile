@@ -4,16 +4,20 @@ pipeline {
             image 'nginx:latest'
             args '-p 8000:8000'
             reuseNode true
-            withServer 'tcp://docker-server:2375'
         }
     }
     triggers {
         githubPush()
     }
     stages {
-        stage('docker tcp connect & test') {
+        stage('copy source') {
             steps {
-                sh 'echo testing...'
+                sh 'cp -f src/index.html /usr/share/nginx/html/'
+            }
+        }
+        stage('curl test') {
+            steps {
+                sh 'curl -s localhost:8000'
             }
         }
     }
