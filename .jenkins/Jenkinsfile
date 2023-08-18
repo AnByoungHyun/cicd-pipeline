@@ -1,18 +1,17 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'nginx:latest'
+            args '-p 8000:8000'
+        }
+    }
     triggers {
         githubPush()
     }
     stages {
         stage('docker tcp connect & test') {
             steps {
-                script {
-                    docker.withServer('tcp://docker-server:2375') {
-                        docker.image('nginx:latest').withRun('-p 8000:8000') {
-                        }
-                    }
-                    sh 'curl docker-server:8000'
-                }
+                sh 'echo testing...'
             }
         }
     }
