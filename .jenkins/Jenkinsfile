@@ -31,7 +31,9 @@ pipeline {
         stage('소나 큐브로 품질 테스트 진행') {
             steps {
                 script {
-                    withSonarQubeEnv() {}
+                    withSonarQubeEnv('sonar9.9') {
+                        sh 'sonar-scanner'
+                    }
                 }
                 timeout(time: 1, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
