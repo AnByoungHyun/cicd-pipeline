@@ -32,7 +32,13 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('sonar9.9') {
-                        sh 'sonar-scanner'
+                        sh """
+                            docker run --rm \
+                              -e SONAR_HOST_URL=${SONAR_HOST_URL} \
+                              -e SONAR_LOGIN=${SONAR_AUTH_TOKEN} \
+                              -v $(pwd):/usr/src \
+                              sonarsource/sonar-scanner-cli
+                        """
                     }
                 }
                 timeout(time: 1, unit: 'MINUTES') {
