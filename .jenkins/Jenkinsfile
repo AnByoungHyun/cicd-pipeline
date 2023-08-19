@@ -34,7 +34,7 @@ pipeline {
                     withSonarQubeEnv('sonar9.9') {
                         sh """
                             docker run --rm \
-                              --add-host $SONAR_HOST_URL:192.168.33.30 \
+                              --add-host sonar-server:192.168.33.30 \
                               -e SONAR_HOST_URL=$SONAR_HOST_URL \
                               -e SONAR_LOGIN=$SONAR_AUTH_TOKEN \
                               -e SONAR_SCANNER_OPTS='-Dsonar.projectKey=static-web' \
