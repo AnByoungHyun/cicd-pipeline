@@ -17,10 +17,10 @@ pipeline {
         }
         stage('curl test') {
             steps {
-                sh 'curl -s -I http://localhost > check'
-            }
-            steps {
-                sh 'grep -E "HTTP/.+2[0-9]{2} OK" check'
+                script {
+                    sh 'curl -s -I http://localhost > check'
+                    sh 'grep -E "HTTP/.+2[0-9]{2} OK" check'
+                }
             }
         }
     }
