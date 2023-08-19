@@ -73,6 +73,7 @@ pipeline {
         //     }
         // }
         stage('압축한 소스 코드 도커 이미지로 빌드 및 푸쉬') {
+            agent any
             steps {
                 sh 'docker build -t abhyuni/static-web:latest .'
             }
