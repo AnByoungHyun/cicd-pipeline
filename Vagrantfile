@@ -23,4 +23,14 @@ Vagrant.configure("2") do |config|
         end
         docker_vm.vm.network "private_network", ip: "192.168.33.20"
     end
+
+    config.vm.define "sonar-vm" do |sonar_vm|
+        sonar_vm.vm.hostname = "sonar-server"
+        sonar_vm.vm.provider "virtualbox" do |vb|
+            vb.name = "sonar-server"
+            vb.cpus = 2
+            vb.memory = 4096
+        end
+        sonar_vm.vm.network "private_network", ip: "192.168.33.30"
+    end
 end
