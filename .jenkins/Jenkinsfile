@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         GITHUB_CREDENTIAL = credentials('github-cicd-pipeline')
+        DOCKER_CREDENTIAL = credentials('docker-token')
         TAG_VERSION = 'v1.0.0'
         PROJECT_NAME = 'static-web'
         REPO_NAME = 'cicd-pipeline'
@@ -71,7 +72,11 @@ pipeline {
         // }
         stage('압축한 소스 코드 도커 이미지로 빌드 및 푸쉬') {
             steps {
-                sh 'docker build -t abhyuni/static-web:latest -f .docker/Dockerfile .'
+                sh "docker login -u ${DOCKER_CREDENTIAL_USR} -p ${DOCKER_CREDENTIAL_PSW}"
+                sh "docker build -t ${DOCKER_CREDENTIAL_USR}/${PROJECT_NAME}:latest -f .docker/Dockerfile ."
+                sh "docker tag ${DOCKER_CREDENTIAL_USR}/${PROJECT_NAME}:latest ${DOCKER_CREDENTIAL_USR}/${PROJECT_NAME}:${TAG_VERSION}"
+                sh "docker push ${DOCKER_CREDENTIAL_USR}/${PROJECT_NAME}:${TAG_VERSION}"
+                sh "docker push ${DOCKER_CREDENTIAL_USR}/${PROJECT_NAME}:latest"
             }
         }
         // stage('도커 허브에 푸쉬한 이미지로 docker-server 에 동작') {
