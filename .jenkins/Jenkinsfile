@@ -10,7 +10,7 @@ pipeline {
         githubPush()
     }
     stages {
-        stage('동작 테스트를 위한 소스 복사') {
+        stage('동작 테스트를 위한 소스 복사 및 테스트') {
             agent {
                 docker {
                     image 'nginx:latest'
@@ -20,8 +20,6 @@ pipeline {
             }
             steps {
                 sh 'cp ./src/* /usr/share/nginx/html/'
-            }
-            steps {
                 echo '테스트 과정 생략...'
                 // script {
                 //     sh 'curl -s -I http://localhost > check'
