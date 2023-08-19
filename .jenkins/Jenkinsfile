@@ -71,7 +71,7 @@ pipeline {
         // }
         stage('압축한 소스 코드 도커 이미지로 빌드 및 푸쉬') {
             steps {
-                sh 'docker build -t abhyuni/static-web:latest .'
+                sh 'docker build -t abhyuni/static-web:latest -f .docker/Dockerfile .'
             }
         }
         // stage('도커 허브에 푸쉬한 이미지로 docker-server 에 동작') {
@@ -79,5 +79,11 @@ pipeline {
 
         //     }
         // }
+    }
+
+    post {
+        cleanup {
+            cleanWs()
+        }
     }
 }
