@@ -28,6 +28,16 @@ pipeline {
                 // }
             }
         }
+        stage('소나 큐브로 품질 테스트 진행') {
+            steps {
+                script {
+                    withSonarQubeEnv() {}
+                }
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('소스 코드 압축') {
             steps {
                 sh "tar -czvf ${PROJECT_NAME}.tar.gz src/"
