@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'nginx:latest'
-            args '-u root --name nginx'
-            reuseNode true
-        }
-    }
+    agent any
     environment {
         GITHUB_CREDENTIAL = credentials('github-cicd-pipeline')
         TAG_VERSION = 'v1.0.0'
@@ -17,11 +11,16 @@ pipeline {
     }
     stages {
         stage('동작 테스트를 위한 소스 복사') {
+            agent {
+                docker {
+                    image 'nginx:latest'
+                    args '-u root --name nginx'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'cp ./src/* /usr/share/nginx/html/'
             }
-        }
-        stage('동작 테스트') {
             steps {
                 echo '테스트 과정 생략...'
                 // script {
@@ -73,7 +72,6 @@ pipeline {
         //     }
         // }
         stage('압축한 소스 코드 도커 이미지로 빌드 및 푸쉬') {
-            agent any
             steps {
                 sh 'docker build -t abhyuni/static-web:latest .'
             }
