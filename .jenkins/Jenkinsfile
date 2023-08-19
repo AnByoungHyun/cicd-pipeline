@@ -81,6 +81,8 @@ pipeline {
         }
         stage('도커 허브에 푸쉬한 이미지로 docker-server 에 동작') {
             steps {
+                sh "docker -H tcp://docker-server:2375 stop web1"
+                sh "docker -H tcp://docker-server:2375 rm web1"
                 sh """
                     docker -H tcp://docker-server:2375 run -it -d -p 8080:80 --name web1 \
                     abhyuni/static-web:${TAG_VERSION}
