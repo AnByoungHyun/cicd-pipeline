@@ -33,4 +33,14 @@ Vagrant.configure("2") do |config|
         end
         sonar_vm.vm.network "private_network", ip: "192.168.33.30"
     end
+
+    config.vm.define "ngrok-vm" do |ngrok_vm|
+        ngrok_vm.vm.hostname = "ngrok-server"
+        ngrok_vm.vm.provider "virtualbox" do |vb|
+            vb.name = "ngrok-server"
+            vb.cpus = 1
+            vb.memory = 2048
+        end
+        ngrok_vm.vm.network "private_network", ip: "192.168.33.250"
+    end
 end

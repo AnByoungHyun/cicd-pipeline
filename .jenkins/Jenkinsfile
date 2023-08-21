@@ -47,6 +47,11 @@ pipeline {
                 }
             }
         }
+        stage('무슨무슨 과정 진행...') {
+            steps {
+                echo '생략...'
+            }
+        }
         stage('소스 코드 압축') {
             steps {
                 sh "tar -czvf ${PROJECT_NAME}.tar.gz src/"
