@@ -19,7 +19,7 @@ pipeline {
                     userRemoteConfigs: [
                         [
                             credentialsId: 'github-cicd-pipeline',
-                            url: 'https://github.com/AnByoungHyun/\$REPO_NAME.git'
+                            url: 'https://github.com/AnByoungHyun/${REPO_NAME}.git'
                         ]
                     ],
                     branches: [
