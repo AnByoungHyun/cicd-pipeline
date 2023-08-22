@@ -14,19 +14,21 @@ pipeline {
     }
     stages {
         stage('GitHub dev branch checkout') {
-            checkout scm: scmGit(
-                userRemoteConfigs: [
-                    [
-                        credentialsId: 'github-cicd-pipeline',
-                        url: 'https://github.com/AnByoungHyun/\$REPO_NAME.git'
+            steps {
+                checkout scm: scmGit(
+                    userRemoteConfigs: [
+                        [
+                            credentialsId: 'github-cicd-pipeline',
+                            url: 'https://github.com/AnByoungHyun/\$REPO_NAME.git'
+                        ]
+                    ],
+                    branches: [
+                        [
+                            name: 'dev'
+                        ]
                     ]
-                ],
-                branches: [
-                    [
-                        name: 'dev'
-                    ]
-                ]
-            )
+                )
+            }
         }
     }
 }
